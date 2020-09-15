@@ -6,18 +6,18 @@ key, value = reader.read(file_queue)
 record_default = [[0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.]]
 xy = tf.decode_csv(value, record_defaults=record_default)
 
-train_x_batch, train_y_batch = tf.train.batch([xy[0:-1], xy[-1:]], batch_size=100)
+train_x_batch, train_y_batch = tf.train.batch([xy[0:-1], xy[-1:]], batch_size=10)
 
 x = tf.placeholder(tf.float32, shape=[None, 15])
 y = tf.placeholder(tf.float32, shape=[None, 1])
-w = tf.multiply(tf.Variable(tf.random_normal([15, 1]), name='weight'), [0.01])
+w = tf.Variable(tf.random_normal([15, 1]), name='weight')
 b = tf.Variable(tf.random_normal([1]), name='bias')
 
 hypothesis = tf.sigmoid(tf.matmul(x, w) + b)
 
 cost = -tf.reduce_mean(y * tf.log(hypothesis) + (1 - y) * tf.log(1 - hypothesis))
 
-train = tf.train.GradientDescentOptimizer(learning_rate=1).minimize(cost)
+train = tf.train.GradientDescentOptimizer(learning_rate=1e-5).minimize(cost)
 
 
 predicted = tf.cast(hypothesis > 0.5, dtype=tf.float32)
