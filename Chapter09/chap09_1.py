@@ -5,10 +5,10 @@ y_data = np.array([[0], [1], [1], [0]], dtype=np.float)
 
 x = tf.placeholder(tf.float32, shape=[None, 2])
 y = tf.placeholder(tf.float32, shape=[None, 1])
-w1 = tf.Variable(tf.random_normal([2, 2]), name='weight1')
-b1 = tf.Variable(tf.random_normal([2]), name='bias1')
+w1 = tf.Variable(tf.random_normal([2, 10]), name='weight1')
+b1 = tf.Variable(tf.random_normal([10]), name='bias1')
 layer = tf.sigmoid(tf.matmul(x, w1) + b1)
-w2 = tf.Variable(tf.random_normal([2, 1]), name='weight2')
+w2 = tf.Variable(tf.random_normal([10, 1]), name='weight2')
 b2 = tf.Variable(tf.random_normal([1]), name='bias2')
 
 hypothesis = tf.sigmoid(tf.matmul(layer, w2) + b2)
